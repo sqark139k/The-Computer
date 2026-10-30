@@ -1,0 +1,8 @@
+body.scanlines-on .app-window::after {
+  content:""; position:absolute; inset:0; pointer-events:none; opacity:.08; z-index:5;
+  background:repeating-linear-gradient(to bottom,transparent 0 3px,#18251d 4px);
+}
+.app-window { position:relative; }
+body.glow-on .pixel-screen { box-shadow:inset 0 0 13px #a9ba8322,0 0 8px #82945d44; }
+body.glow-on .display { box-shadow:inset 0 0 22px #080f0b,0 0 12px #82945d22; }
+@keyframes glitchJitter { 0%{transform:translate(0)} 25%{transform:translate(2px,-1px)} 50%{transform:translate(-2px,1px)} 75%{transform:translate(1px,1px)} 100%{transform:translate(0)} }

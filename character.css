@@ -1,0 +1,51 @@
+.computer-corner { border-left:1px dashed #c6b99a; padding-left:22px; display:flex; flex-direction:column; align-items:center; min-width:0; }
+.corner-label { align-self:flex-start; color:#95896f; font-size:8px; letter-spacing:1.3px; }
+.character-stage { position:relative; width:172px; height:160px; display:grid; place-items:center; margin:15px 0 8px; cursor:pointer; }
+.computer-body {
+  width:132px; height:116px; position:relative; z-index:1; background:linear-gradient(145deg,#f0e5cd,#cfc1a0);
+  border:2px solid #a99a79; border-radius:13px 13px 9px 9px;
+  box-shadow:inset 3px 3px 0 #fff7e5,inset -4px -5px 0 #b0a17f,4px 7px 0 #8d8063;
+  transition:transform .18s;
+}
+.character-stage:hover .computer-body { transform:translateY(-3px) rotate(-1deg); }
+.screen-frame { position:absolute; width:91px; height:70px; left:18px; top:12px; padding:6px; background:#8e8065; border-radius:7px; box-shadow:inset 2px 2px 3px #6c604b; }
+.pixel-screen { height:100%; background:#1b2c20; border:2px solid #334632; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; box-shadow:inset 0 0 13px #a9ba8322; }
+.pixel-eyes { display:flex; gap:18px; height:13px; align-items:center; }
+.pixel-eyes span { width:7px; height:9px; background:#b7c78d; box-shadow:0 0 5px #b7c78d; }
+.pixel-mouth { width:20px; height:4px; background:#a9ba83; box-shadow:0 0 4px #a9ba83; }
+.body-details { position:absolute; bottom:9px; left:19px; right:18px; display:flex; align-items:center; justify-content:space-between; }
+.vent { width:37px; height:7px; background:repeating-linear-gradient(90deg,#9b8d6d 0 3px,transparent 3px 6px); opacity:.8; }
+.orange-button { width:9px;height:9px;border-radius:50%;background:var(--amber);border:1px solid #a66c35;box-shadow:0 0 5px #c88c5055; }
+.sticky-note { position:absolute; right:-12px; top:48px; transform:rotate(8deg); background:#d8c77f; color:#5d573d; font:700 8px var(--pixel); padding:7px 6px 10px; box-shadow:1px 2px 3px #594f3b44; }
+.character-shadow { position:absolute; bottom:9px; width:105px; height:12px; background:#655c4830; border-radius:50%; filter:blur(3px); }
+.speech-bubble { position:relative; width:100%; background:#eee5d1; border:1px solid #c9bb9b; padding:10px 11px; min-height:47px; color:#5f5948; font-size:10px; line-height:1.55; box-shadow:2px 3px 0 #cfc2a5; }
+.speech-bubble::before { content:""; position:absolute; top:-6px; left:50%; width:10px; height:10px; background:#eee5d1; border-left:1px solid #c9bb9b; border-top:1px solid #c9bb9b; transform:rotate(45deg); }
+.character-status { display:flex; align-items:center; gap:7px; margin-top:12px; font-size:8px; letter-spacing:1px; color:#92866c; }
+.character-stage.annoyed .pixel-eyes span { height:4px; transform:rotate(-12deg); }
+.character-stage.confused .pixel-eyes span:first-child { transform:translateY(-3px); }
+.character-stage.shocked .pixel-eyes span { width:9px;height:12px; }
+.character-stage.shocked .pixel-mouth { width:8px;height:9px;border-radius:50%; }
+.character-stage.smug .pixel-mouth { width:16px; transform:translateX(5px) rotate(-8deg); }
+.character-stage.glitch { animation:glitchJitter .16s steps(2) 3; }
+.character-stage.glitch .pixel-screen { filter:hue-rotate(45deg); }
+@media(max-width:700px) { .computer-corner { border-left:0; border-top:1px dashed #c6b99a; padding:15px 0 0; } .character-stage { margin:4px 0 0; transform:scale(.88); transform-origin:center; } .corner-label { margin-bottom:5px; } }
+
+/* ---- อารมณ์เพิ่มเติม: เหนื่อย / เบื่อ / หลับ ---- */
+.character-stage.tired .pixel-eyes span { height:5px; transform:translateY(2px); }
+.character-stage.tired .pixel-mouth { width:12px; height:3px; transform:rotate(5deg); }
+.character-stage.tired .screen-frame::after { content:""; position:absolute; right:3px; top:7px; width:6px; height:9px; border-radius:50% 50% 50% 50% / 62% 62% 38% 38%; background:#9ec4d6; opacity:.9; animation:sweat 1.4s ease-in infinite; }
+.character-stage.bored .pixel-eyes span { height:3px; }
+.character-stage.bored .pixel-mouth { width:11px; height:3px; transform:translateX(-3px); }
+.character-stage.sleeping .pixel-eyes span { height:2px; box-shadow:none; }
+.character-stage.sleeping .pixel-mouth { width:7px; height:6px; border-radius:50%; background:#6f8260; box-shadow:none; animation:snore 2.6s ease-in-out infinite; }
+.character-stage.sleeping .pixel-screen { filter:brightness(.72); }
+.character-stage.sleeping .computer-body { animation:breathe 3.2s ease-in-out infinite; }
+.zzz { position:absolute; right:14px; top:6px; width:0; height:0; display:none; pointer-events:none; z-index:3; font:700 14px var(--pixel); color:#8e8065; }
+.character-stage.sleeping .zzz { display:block; }
+.zzz span { position:absolute; left:0; top:0; opacity:0; animation:floatZ 2.6s ease-in infinite; }
+.zzz span:nth-child(2) { animation-delay:.85s; font-size:17px; }
+.zzz span:nth-child(3) { animation-delay:1.7s; font-size:21px; }
+@keyframes floatZ { 0% { opacity:0; transform:translate(0,0) scale(.6); } 20% { opacity:1; } 100% { opacity:0; transform:translate(22px,-40px) scale(1.15); } }
+@keyframes sweat { 0% { transform:translateY(0); opacity:.9; } 100% { transform:translateY(16px); opacity:0; } }
+@keyframes breathe { 0%,100% { transform:scale(1); } 50% { transform:scale(1.025); } }
+@keyframes snore { 0%,100% { transform:scale(.8); } 50% { transform:scale(1.25); } }

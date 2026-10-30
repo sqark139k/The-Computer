@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#26352b">
+  <meta name="description" content="THE COMPUTER — เครื่องคิดเลขที่มีท่าทีเป็นของตัวเอง">
+  <title>THE COMPUTER.EXE</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/calculator.css">
+  <link rel="stylesheet" href="css/character.css">
+  <link rel="stylesheet" href="css/effects.css">
+  <link rel="stylesheet" href="css/features.css">
+</head>
+<body>
+  <div class="desk">
+    <div class="monitor-shell">
+      <div class="monitor-top">
+        <span class="brand-mark">TC<span class="brand-dot">.</span></span>
+        <span class="monitor-label">เครื่องคอมพิวเตอร์ส่วนบุคคล / รุ่น 01</span>
+        <span class="power-light" aria-label="Power on"></span>
+      </div>
+
+      <main class="app-window" id="appWindow">
+        <header class="window-titlebar">
+          <div class="window-title">
+            <span class="tiny-computer-icon">▣</span>
+            <span>THE COMPUTER.EXE</span>
+          </div>
+          <div class="window-controls" aria-hidden="true"><i></i><i></i><i></i></div>
+        </header>
+
+        <nav class="menu-bar" aria-label="Main menu">
+          <button class="menu-item active" data-panel="calculator">เครื่องคิดเลข</button>
+          <button class="menu-item" data-panel="history">ประวัติ <span id="historyCount">0</span></button>
+          <button class="menu-item" data-panel="memory">หน่วยความจำ</button>
+          <button class="menu-item" data-panel="tools">เครื่องมือ</button>
+          <button class="menu-item" data-panel="game">ท้าทาย</button>
+          <button class="menu-item" data-panel="achievements">ผลงาน <span id="achCount">0</span></button>
+          <button class="menu-item" data-panel="settings">ตั้งค่า</button>
+        </nav>
+
+        <section class="workspace">
+          <!-- เครื่องคิดเลข -->
+          <section class="calculator-panel panel-view active" id="calculatorPanel">
+            <div class="section-kicker"><span class="status-dot"></span> พร้อมใช้งานแล้ว</div>
+            <div class="display" aria-live="polite">
+              <div class="expression" id="expression"> </div>
+              <div class="result" id="display">0</div>
+              <div class="reading" id="reading"></div>
+              <div class="display-bottom"><span id="displayStatus">โหมดปกติ</span><button id="copyButton" class="copy-button" title="Copy result">คัดลอก ↗</button></div>
+            </div>
+
+            <div class="keypad" id="keypad">
+              <button class="key utility" data-action="clear">AC</button>
+              <button class="key utility" data-action="sign">+/−</button>
+              <button class="key utility" data-action="percent">%</button>
+              <button class="key operator" data-operator="/">÷</button>
+
+              <button class="key" data-number="7">7</button>
+              <button class="key" data-number="8">8</button>
+              <button class="key" data-number="9">9</button>
+              <button class="key operator" data-operator="*">×</button>
+
+              <button class="key" data-number="4">4</button>
+              <button class="key" data-number="5">5</button>
+              <button class="key" data-number="6">6</button>
+              <button class="key operator" data-operator="-">−</button>
+
+              <button class="key" data-number="1">1</button>
+              <button class="key" data-number="2">2</button>
+              <button class="key" data-number="3">3</button>
+              <button class="key operator" data-operator="+">+</button>
+
+              <button class="key zero" data-number="0">0</button>
+              <button class="key" data-action="decimal">.</button>
+              <button class="key utility" data-action="delete">DEL</button>
+              <button class="key equals" data-action="equals">=</button>
+            </div>
+            <div class="keyboard-hint">พร้อมรับคำสั่งจากแป้นพิมพ์ <span>·</span> Enter = <b>=</b> <span>·</span> Esc = <b>AC</b></div>
+          </section>
+
+          <!-- ประวัติ: ม้วนใบเสร็จ -->
+          <section class="history-panel panel-view" id="historyPanel">
+            <div class="section-kicker">รายการคำนวณล่าสุด</div>
+            <div class="subheading">ม้วนใบเสร็จ</div>
+            <div class="receipt-wrap">
+              <div class="receipt" id="receipt">
+                <div class="receipt-head">
+                  <b>THE COMPUTER.EXE</b>
+                  <span>ใบเสร็จการคำนวณ</span>
+                  <span id="receiptTime"></span>
+                </div>
+                <div class="receipt-sep"></div>
+                <div id="historyList" class="history-list"><p class="empty-state">ยังไม่มีรายการ ลองคำนวณสักครั้งสิ</p></div>
+                <div class="receipt-sep"></div>
+                <div class="receipt-total"><span>รวมทั้งหมด</span><b><span id="receiptCount">0</span> รายการ</b></div>
+                <div class="receipt-thanks">ขอบคุณที่ใช้บริการ</div>
+                <div class="barcode" aria-hidden="true"></div>
+              </div>
+            </div>
+            <div class="receipt-actions">
+              <button class="text-button" id="saveReceipt">บันทึกเป็นรูป</button>
+              <button class="text-button" id="clearHistory">ล้างประวัติ</button>
+            </div>
+            <p class="panel-note">คลิกที่รายการเพื่อดึงคำตอบกลับไปคิดต่อ</p>
+          </section>
+
+          <!-- หน่วยความจำ -->
+          <section class="memory-panel panel-view" id="memoryPanel">
+            <div class="section-kicker">พื้นที่จัดเก็บภายใน</div>
+            <div class="subheading">หน่วยความจำ register</div>
+            <div class="memory-value" id="memoryValue">0</div>
+            <p class="panel-note">พื้นที่เล็ก ๆ สำหรับเก็บตัวเลข อย่าทำหายล่ะ</p>
+            <div class="memory-actions">
+              <button class="action-button" data-memory="add">M+</button>
+              <button class="action-button" data-memory="subtract">M−</button>
+              <button class="action-button" data-memory="recall">MR</button>
+              <button class="action-button" data-memory="clear">MC</button>
+            </div>
+          </section>
+
+          <!-- เครื่องมือเสริม -->
+          <section class="tools-panel panel-view" id="toolsPanel">
+            <div class="section-kicker">กล่องเครื่องมือ</div>
+            <div class="subheading">เครื่องมือเสริม</div>
+            <div class="tool-tabs">
+              <button class="tool-tab active" data-tool="sci">วิทยาศาสตร์</button>
+              <button class="tool-tab" data-tool="convert">แปลงหน่วย</button>
+              <button class="tool-tab" data-tool="money">เงิน</button>
+              <button class="tool-tab" data-tool="read">อ่านเลข</button>
+            </div>
+
+            <div class="tool-section active" id="tool-sci">
+              <div class="tool-live"><span>ค่าบนจอ: <b id="sciValue">0</b></span><button class="chip" id="degToggle">DEG</button></div>
+              <div class="sci-grid" id="sciGrid"></div>
+              <p class="panel-note">ฟังก์ชันจะทำกับค่าที่อยู่บนจอ ผลลัพธ์ลงประวัติให้ด้วย ส่วน xʸ จะพากลับไปหน้าเครื่องคิดเลขเพื่อใส่เลขชี้กำลัง</p>
+            </div>
+
+            <div class="tool-section" id="tool-convert">
+              <label class="field"><span>ประเภท</span><select id="convCat"></select></label>
+              <div class="conv-row">
+                <input type="number" id="convIn" step="any" value="1" inputmode="decimal" aria-label="จำนวนที่จะแปลง">
+                <select id="convFrom" aria-label="จากหน่วย"></select>
+              </div>
+              <div class="conv-actions">
+                <button class="chip fill" data-target="convIn">ใช้ค่าจากจอ</button>
+                <button class="chip" id="convSwap">⇅ สลับ</button>
+              </div>
+              <div class="conv-row">
+                <output id="convOut" class="conv-out">0</output>
+                <select id="convTo" aria-label="เป็นหน่วย"></select>
+              </div>
+              <button class="text-button" id="convSend">ส่งผลลัพธ์ไปที่จอ</button>
+              <div class="rate-box" id="rateBox"></div>
+            </div>
+
+            <div class="tool-section" id="tool-money">
+              <div class="res-title">ภาษีมูลค่าเพิ่ม (VAT)</div>
+              <div class="conv-row">
+                <input type="number" id="vatAmount" step="any" min="0" placeholder="ใส่ราคา" inputmode="decimal" aria-label="ราคา">
+                <label class="inline-field"><span>VAT</span><input type="number" id="vatRate" step="any" min="0" value="7" aria-label="อัตรา VAT"><span>%</span></label>
+              </div>
+              <div class="conv-actions"><button class="chip fill" data-target="vatAmount">ใช้ค่าจากจอ</button></div>
+              <div id="vatResult"></div>
+
+              <div class="res-title">หารบิลร้านอาหาร</div>
+              <div class="conv-row">
+                <input type="number" id="billAmount" step="any" min="0" placeholder="ยอดอาหาร" inputmode="decimal" aria-label="ยอดอาหาร">
+                <label class="inline-field"><span>คน</span><input type="number" id="people" step="1" min="1" value="2" aria-label="จำนวนคน"></label>
+              </div>
+              <div class="conv-row">
+                <label class="inline-field"><span>ค่าบริการ</span><input type="number" id="svcRate" step="any" min="0" value="10" aria-label="ค่าบริการ"><span>%</span></label>
+                <label class="inline-field check"><input type="checkbox" id="billVat" checked><span>บวก VAT</span></label>
+              </div>
+              <div class="conv-actions"><button class="chip fill" data-target="billAmount">ใช้ค่าจากจอ</button></div>
+              <div id="billResult"></div>
+            </div>
+
+            <div class="tool-section" id="tool-read">
+              <div class="conv-row">
+                <input type="number" id="readIn" step="any" placeholder="ใส่ตัวเลข เช่น 1250.50" inputmode="decimal" aria-label="ตัวเลขที่จะอ่าน">
+                <button class="chip fill" data-target="readIn">ใช้ค่าจากจอ</button>
+              </div>
+              <div class="res-title">อ่านเป็นตัวเลขไทย</div>
+              <div class="read-box"><span id="readText">—</span><button class="chip copy" data-from="readText">คัดลอก</button></div>
+              <div class="res-title">อ่านเป็นจำนวนเงิน (บาท)</div>
+              <div class="read-box"><span id="readBaht">—</span><button class="chip copy" data-from="readBaht">คัดลอก</button></div>
+              <p class="panel-note">ใช้เขียนเช็คหรือใบเสร็จได้ ตัวเลขใต้จอเครื่องคิดเลขก็อ่านให้อัตโนมัติ เปิด/ปิดได้ในหน้าตั้งค่า</p>
+            </div>
+          </section>
+
+          <!-- เกม -->
+          <section class="game-panel panel-view" id="gamePanel">
+            <div class="section-kicker">ห้องทดสอบ</div>
+            <div class="subheading">ท้าประลองคิดเลข</div>
+            <div class="game-hud">
+              <span>ข้อ <b id="gRound">0</b>/10</span>
+              <span>แต้ม <b id="gScore">0</b></span>
+              <span>สถิติ <b id="gBest">0</b></span>
+            </div>
+            <div class="game-timer"><div id="gBar"></div></div>
+            <div class="game-question" id="gQuestion">พร้อมโดนท้าหรือยัง?</div>
+            <form class="game-form" id="gForm" autocomplete="off">
+              <input type="number" id="gInput" step="any" inputmode="decimal" placeholder="พิมพ์คำตอบแล้วกด Enter" disabled aria-label="คำตอบ">
+              <button class="chip" id="gSubmit" type="submit" disabled>ตอบ</button>
+            </form>
+            <div class="game-feedback" id="gFeedback"></div>
+            <button class="text-button" id="gStart" type="button">เริ่มเกม</button>
+            <p class="panel-note">10 ข้อ ยิ่งตอบเร็วยิ่งได้แต้มเยอะ ถูกติดกัน 3 ข้อขึ้นไปมีโบนัส ตัวละครจะคอยแซวอยู่ข้างๆ</p>
+          </section>
+
+          <!-- ผลงาน -->
+          <section class="achievements-panel panel-view" id="achievementsPanel">
+            <div class="section-kicker">สะสมแบดจ์</div>
+            <div class="subheading">ผลงานของคุณ <span class="sub-count" id="achProgress">0/0</span></div>
+            <div class="ach-grid" id="achGrid"></div>
+            <button class="text-button" id="resetAch">ล้างผลงาน</button>
+          </section>
+
+          <!-- ตั้งค่า -->
+          <section class="settings-panel panel-view" id="settingsPanel">
+            <div class="section-kicker">PREFERENCES / NO REFUNDS</div>
+            <div class="subheading">การตั้งค่าระบบ</div>
+            <label class="setting-row"><span>เส้นสแกนหน้าจอ CRT</span><input type="checkbox" id="scanlinesToggle" checked><i></i></label>
+            <label class="setting-row"><span>แสงเรืองหน้าจอ</span><input type="checkbox" id="glowToggle" checked><i></i></label>
+            <label class="setting-row"><span>บทสนทนาของตัวละคร</span><input type="checkbox" id="dialogueToggle" checked><i></i></label>
+            <label class="setting-row"><span>เสียงพูดของตัวละคร</span><input type="checkbox" id="voiceToggle" checked><i></i></label>
+            <label class="setting-row"><span>ตัวละครหลับเมื่อปล่อยทิ้งไว้</span><input type="checkbox" id="sleepToggle" checked><i></i></label>
+            <label class="setting-row"><span>อ่านตัวเลขเป็นภาษาไทยใต้จอ</span><input type="checkbox" id="readingToggle" checked><i></i></label>
+            <label class="setting-row"><span>เสียงคลิก</span><input type="checkbox" id="soundToggle" checked><i></i></label>
+            <p class="panel-note">เสียงเปิดไว้เป็นค่าเริ่มต้น ปิดได้ตรงสวิตช์ด้านบน (เสียงพูดจะเงียบไปด้วยเมื่อปิดเสียงคลิก) คอมพิวเตอร์เคารพความสงบของคุณ... เป็นส่วนใหญ่</p>
+            <button class="text-button" id="resetSettings">คืนค่าเริ่มต้น</button>
+          </section>
+
+          <aside class="computer-corner">
+            <div class="corner-label">เพื่อนร่วมงานของคุณ</div>
+            <div class="character-stage" id="character" title="The Computer">
+              <div class="computer-body">
+                <div class="screen-frame">
+                  <div class="pixel-screen">
+                    <div class="pixel-eyes" id="pixelEyes"><span></span><span></span></div>
+                    <div class="pixel-mouth" id="pixelMouth"></div>
+                  </div>
+                </div>
+                <div class="body-details"><span class="vent"></span><span class="orange-button"></span></div>
+                <div class="sticky-note">hi.</div>
+              </div>
+              <div class="zzz" aria-hidden="true"><span>z</span><span>Z</span><span>Z</span></div>
+              <div class="character-shadow"></div>
+            </div>
+            <div class="speech-bubble" id="speechBubble" aria-live="polite">...</div>
+            <div class="character-status"><span class="status-dot"></span><span id="characterStatus">พร้อมทำงาน</span></div>
+          </aside>
+        </section>
+
+        <footer class="statusbar">
+          <span><i class="mini-led"></i> ระบบออนไลน์</span>
+          <span id="footerMemory">หน่วยความจำ: 0</span>
+          <span id="footerHistory">ประวัติ: 0</span>
+          <span class="status-right">© ที่ไหนสักแห่งในคอมพิวเตอร์ของคุณ</span>
+        </footer>
+      </main>
+
+      <div class="monitor-chin">
+        <span>THE COMPUTER</span>
+        <div class="chin-controls"><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="desk-caption">เครื่องคิดเลขที่มีท่าทีเป็นของตัวเอง</div>
+  </div>
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="js/ui.js"></script>
+  <script src="js/dialogue.js"></script>
+  <script src="js/thai.js"></script>
+  <script src="js/achievements.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/character.js"></script>
+  <script src="js/tools.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/receipt.js"></script>
+  <script src="js/interactions.js"></script>
+  <script src="js/settings.js"></script>
+</body>
+</html>
